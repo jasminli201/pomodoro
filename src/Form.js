@@ -3,9 +3,10 @@ import React from "react";
 export default class Form extends React.Component {
   state = {
     activity: "",
-    time: "",
-    date: ""
+    date: "",
+    time: ""
   };
+
   handleChange = evt => {
     evt.preventDefault();
     this.setState({ [evt.target.name]: evt.target.value });
@@ -31,19 +32,19 @@ export default class Form extends React.Component {
             onChange={this.handleChange}
           />
 
-          <label>Time Completed:</label>
-          <input
-            type="text"
-            name="time"
-            id="time"
-            onChange={this.handleChange}
-          />
-
-          <label>Date Completed: </label>
+          <label>Date Completed:</label>
           <input
             type="text"
             name="date"
             id="date"
+            onChange={this.handleChange}
+          />
+
+          <label>Time Completed: </label>
+          <input
+            type="text"
+            name="time"
+            id="time"
             onChange={this.handleChange}
           />
 
