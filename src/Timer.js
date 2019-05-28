@@ -5,7 +5,8 @@ class Timer extends Component {
     super();
     this.state = {
       time: {},
-      seconds: 1500
+      seconds: 1500,
+      date: ""
     };
     this.timer = 0;
     this.startTimer = this.startTimer.bind(this);
@@ -26,18 +27,18 @@ class Timer extends Component {
     return obj;
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     let timeLeftVar = this.secondsToTime(this.state.seconds);
     this.setState({ time: timeLeftVar });
-  }
+  };
 
-  startTimer() {
+  startTimer = () => {
     if (this.timer == 0 && this.state.seconds > 0) {
       this.timer = setInterval(this.countDown, 1000);
     }
-  }
+  };
 
-  countDown() {
+  countDown = () => {
     let seconds = this.state.seconds - 1;
     this.setState({
       time: this.secondsToTime(seconds),
@@ -47,7 +48,27 @@ class Timer extends Component {
       clearInterval(this.timer);
       alert("Done");
     }
-  }
+  };
+
+  getDate = () => {
+    var tempDate = new Date();
+    var date =
+      tempDate.getFullYear() +
+      "-" +
+      (tempDate.getMonth() + 1) +
+      "-" +
+      tempDate.getDate() +
+      " " +
+      tempDate.getHours() +
+      ":" +
+      tempDate.getMinutes() +
+      ":" +
+      tempDate.getSeconds();
+    const currDate = date;
+    this.setState({
+      date: currDate
+    });
+  };
 
   render() {
     return (
@@ -55,7 +76,9 @@ class Timer extends Component {
         {this.state.time.m} : {this.state.time.s}
         <div>
           <button onClick={this.startTimer}>Start</button>
+          <button onClick={this.getDate}>Get date</button>
         </div>
+        {this.state.date}
       </div>
     );
   }
