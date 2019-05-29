@@ -1,13 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import History from "./History.js"
-function App() {
-  return (
-    <div className="App">
-     <History/>
-    </div>
-  );
+import React, { Component } from "react";
+import { Link, Route, BrowserRouter as Router } from "react-router-dom";
+import Timer from "./Timer.js";
+import History from "./History.js";
+// import Leaderboard from "./Leaderboard.js";
+import "./App.css";
+
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        {/* <Route exact path="/" component={Home} /> */}
+        <Route exact path="/Timer" component={Timer} />
+        <Route exact path="/History" component={History} />
+        {/* <Route exact path="/Leaderboard" component={Leaderboard} /> */}
+      </Router>
+    );
+  }
 }
 
 export default App;
