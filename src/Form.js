@@ -3,6 +3,8 @@ import firebase from "./firebase.js";
 import { Card, Row, Col, Input, Button, PageHeader, Layout } from "antd";
 
 const usersLists = [];
+import { Redirect } from "react-router-dom";
+
 const { Header, Footer, Sider, Content } = Layout;
 
 export default class Form extends React.Component {
@@ -10,7 +12,8 @@ export default class Form extends React.Component {
     activity: "",
     date: "",
     time: "",
-    usersList:[]
+    usersList:[],
+    redirect: false
   };
 
   handleChange = evt => {
@@ -65,13 +68,24 @@ export default class Form extends React.Component {
     const currTime = time;
     return currTime;
   };
-  logout() {
+
+  logout = () => {
     firebase.auth().signOut();
-  }
+    this.setState({
+      redirect: true
+    });
+  };
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to="/" />;
+    }
+  };
+
   render() {
     return (
       <div>
-        {/* {console.log(this.props.user.uid)} */}
+        {this.renderRedirect()}
         <Row>
           <Col span={3} />
           <Col span={12}>
