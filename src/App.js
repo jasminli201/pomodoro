@@ -5,7 +5,7 @@ import History from "./History.js"
 function App() {
   return (
     <div className="App">
-     <Histroy/>
+     <History/>
     </div>
   );
 }
