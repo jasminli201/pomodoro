@@ -1,14 +1,17 @@
 import React from "react";
 import firebase from "./firebase.js";
-import { Card } from "antd";
+import { Card, Row, Col, Input, Button, PageHeader, Layout } from "antd";
+import { Redirect } from "react-router-dom";
 
 const usersList = [];
+const { Header, Footer, Sider, Content } = Layout;
 
 export default class Form extends React.Component {
   state = {
     activity: "",
     date: "",
-    time: ""
+    time: "",
+    redirect: false
   };
 
   handleChange = evt => {
@@ -17,21 +20,25 @@ export default class Form extends React.Component {
   };
 
   handleSubmit = event => {
-    event.preventDefault();
-    document.getElementById("activity").value = "";
-    // document.getElementById("time").value = "";
-    // document.getElementById("date").value = "";
-    //Need to access firebase on the certain user and push the activity, date and time up
-    const usersRef = firebase.database().ref("users/" + this.props.user.uid);
-    const user = {
-      activity: this.state.activity,
-      date: this.getDate(),
-      time: this.getTime()
-    };
-    usersRef.push(user);
-    usersList.push(user);
-    console.log(user);
-    console.log(usersList);
+    firebase.auth().onAuthStateChanged(
+      function(user) {
+        event.preventDefault();
+        document.getElementById("activity").value = "";
+        // document.getElementById("time").value = "";
+        // document.getElementById("date").value = "";
+        //Need to access firebase on the certain user and push the activity, date and time up
+        const usersRef = firebase.database().ref("users/" + user.uid);
+        const User = {
+          activity: this.state.activity,
+          date: this.getDate(),
+          time: this.getTime()
+        };
+        usersRef.push(User);
+        usersList.push(User);
+        console.log(User);
+        console.log(usersList);
+      }.bind(this)
+    );
     // this.createCard(user);
   };
 
@@ -46,9 +53,6 @@ export default class Form extends React.Component {
       tempDate.getFullYear();
     const currDate = date;
     return currDate;
-    // this.setState({
-    //   date: currDate
-    // });
   };
 
   getTime = () => {
@@ -64,66 +68,59 @@ export default class Form extends React.Component {
     return currTime;
   };
 
-  // createCard = () => {
-  //   return (
-  //     <Card title={usersList.activity}>
-  //       <p>date={usersList.date}</p>
-  //       <p>time={usersList.time}</p>
-  //     </Card>
-  //   );
-  // };
-
-  logout() {
+  logout = () => {
     firebase.auth().signOut();
-  }
+    this.setState({
+      redirect: true
+    });
+  };
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to="/" />;
+    }
+  };
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>Activity Completed: </label>
-          <input
-            type="text"
-            name="activity"
-            id="activity"
-            onChange={this.handleChange}
-          />
-
-          {/* <label>Date Completed:</label>
-          <input
-            type="date"
-            name="date"
-            id="date"
-            onChange={this.handleChange}
-          />
-
-          <label>Time Completed: </label>
-          <input
-            type="time"
-            name="time"
-            id="time"
-            onChange={this.handleChange}
-          /> */}
-
-          <input type="submit" value="Submit" />
-        </form>
-        <button onClick={this.logout}>Logout</button>
-        {usersList.map(submission => {
-          return (
-            <Card
-              title={submission.activity}
-              style={{
-                background: "#ffff6",
-                width: 300,
-                textAlign: "center"
-              }}
-            >
-              <p>Date: {submission.date}</p>
-              <p>Time: {submission.time}</p>
-            </Card>
-          );
-        })}
-        {this.createCard}
+        {this.renderRedirect()}
+        <Row>
+          <Col span={3} />
+          <Col span={12}>
+            <PageHeader
+              style={{ background: "#ffff6", textAlign: "center" }}
+              title="Enter completed activity:"
+            />
+            <Input
+              type="text"
+              name="activity"
+              id="activity"
+              onChange={this.handleChange}
+            />
+            <Footer style={{ background: "#fff6", textAlign: "center" }}>
+              <Button onClick={this.handleSubmit}>Submit</Button>
+            </Footer>
+            <Button onClick={this.logout}>Logout</Button>
+          </Col>
+          <Col span={9} style={{ textAlign: "center" }}>
+            {usersList.map(submission => {
+              return (
+                <Card
+                  title={submission.activity}
+                  style={{
+                    background: "#ffff6",
+                    width: 300,
+                    textAlign: "center"
+                  }}
+                >
+                  <p>Date: {submission.date}</p>
+                  <p>Time: {submission.time}</p>
+                </Card>
+              );
+            })}
+          </Col>
+        </Row>
       </div>
     );
   }
