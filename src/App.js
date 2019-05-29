@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link, Route, BrowserRouter as Router } from "react-router-dom";
 import Timer from "./Timer.js";
-// import History from "./History.js";
-// import Profile from "./Profile.js";
+import History from "./History.js";
+// import Leaderboard from "./Leaderboard.js";
 import "./App.css";
 
 class App extends Component {
@@ -11,8 +11,8 @@ class App extends Component {
       <Router>
         {/* <Route exact path="/" component={Home} /> */}
         <Route exact path="/Timer" component={Timer} />
-        {/* <Route exact path="/History" component={History} /> */}
-        {/* <Route exact path="/Profile" component={Profile} /> */}
+        <Route exact path="/History" component={History} />
+        {/* <Route exact path="/Leaderboard" component={Leaderboard} /> */}
       </Router>
     );
   }

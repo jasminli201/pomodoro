@@ -40,7 +40,7 @@ class Timer extends Component {
       <div>
         <Navbar />
         <Row gutter={16}>
-          <Col span={6} style={{ textAlign: "center" }}>
+          <Col span={8} style={{ textAlign: "center" }}>
             <PageHeader
               style={{ background: "#ffff6", textAlign: "center" }}
               title="Timer"
@@ -52,10 +52,10 @@ class Timer extends Component {
               <Button onClick={this.handleClick}>Start</Button>
             </Footer>
           </Col>
-          <Col span={12} style={{ textAlign: "center" }}>
+          <Col span={8} style={{ textAlign: "center" }}>
             {/* <Form /> */}
           </Col>
-          <Col span={6} style={{ textAlign: "center" }}>
+          <Col span={8} style={{ textAlign: "center" }}>
             <Submissions />
           </Col>
         </Row>

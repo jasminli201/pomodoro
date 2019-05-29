@@ -47,21 +47,27 @@ class Submissions extends Component {
     return (
       <div>
         <Row>
-          <PageHeader
-            style={{ background: "#ffff6", textAlign: "center" }}
-            title="Current Submissions"
-          />
-          {this.state.submissions.map(submission => {
-            return (
-              <Card
-                title={submission.activity}
-                style={{ background: "#ffff6", width: 350 }}
-              >
-                <p>Date: {submission.date}</p>
-                <p>Time: {submission.time}</p>
-              </Card>
-            );
-          })}
+          <Col span={15} style={{ textAlign: "center" }}>
+            <PageHeader
+              style={{ background: "#ffff6", textAlign: "center" }}
+              title="Current Submissions"
+            />
+            {this.state.submissions.map(submission => {
+              return (
+                <Card
+                  title={submission.activity}
+                  style={{
+                    background: "#ffff6",
+                    width: 300,
+                    textAlign: "center"
+                  }}
+                >
+                  <p>Date: {submission.date}</p>
+                  <p>Time: {submission.time}</p>
+                </Card>
+              );
+            })}
+          </Col>
         </Row>
       </div>
     );
