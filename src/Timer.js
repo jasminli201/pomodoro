@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar.js";
 import Form from "./Form.js";
-import Submissions from "./Submissions.js";
 import {
   Statistic,
   Row,
@@ -16,6 +15,8 @@ const { Content, Footer } = Layout;
 
 const Countdown = Statistic.Countdown;
 
+var seconds = 0;
+
 class Timer extends Component {
   constructor() {
     super();
@@ -24,13 +25,20 @@ class Timer extends Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({
+      time: seconds
+    });
+  }
+
   onFinish = () => {
     alert("finished!");
   };
 
   handleClick = () => {
+    seconds = Date.now() + 1000 * 60 * 25;
     this.setState({
-      time: Date.now() + 1000 * 60 * 25
+      time: seconds
     });
   };
 
@@ -51,11 +59,8 @@ class Timer extends Component {
               <Button onClick={this.handleClick}>Start</Button>
             </Footer>
           </Col>
-          <Col span={8} style={{ textAlign: "center" }}>
-            <Form user={this.props.user} />
-          </Col>
-          <Col span={8} style={{ textAlign: "center" }}>
-            {/* <Submissions /> */}
+          <Col span={16} style={{ textAlign: "center" }}>
+            <Form />
           </Col>
         </Row>
       </div>

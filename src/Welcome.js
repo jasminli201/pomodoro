@@ -28,11 +28,7 @@ class Welcome extends Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.state.user ? <Timer user={this.state.user} /> : <Login />}
-      </div>
-    );
+    return <div>{this.state.user ? <Timer /> : <Login />}</div>;
   }
 }
 
