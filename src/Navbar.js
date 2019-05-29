@@ -9,7 +9,7 @@ class Navbar extends Component {
       <div>
         <Menu mode="horizontal">
           <Menu.Item>
-            <Link to="/">Home</Link>
+            <Link to="/">Welcome</Link>
           </Menu.Item>
           <Menu.Item>
             <Link to="/Timer">Timer</Link>
@@ -18,7 +18,7 @@ class Navbar extends Component {
             <Link to="/History">History</Link>
           </Menu.Item>
           <Menu.Item>
-            <Link to="/Profile">Profile</Link>
+            <Link to="/Leaderboard">Leaderboard</Link>
           </Menu.Item>
         </Menu>
       </div>
