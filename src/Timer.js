@@ -1,84 +1,64 @@
 import React, { Component } from "react";
+import Navbar from "./Navbar.js";
+import Form from "./Form.js";
+import Submissions from "./Submissions.js";
+import {
+  Statistic,
+  Row,
+  Col,
+  Layout,
+  PageHeader,
+  Button,
+  Carousel
+} from "antd";
+
+const { Content, Footer } = Layout;
+
+const Countdown = Statistic.Countdown;
+const deadline = Date.now() + 1000 * 60 * 25.01;
 
 class Timer extends Component {
   constructor() {
     super();
     this.state = {
-      time: {},
-      seconds: 1500,
-      date: ""
+      time: 0
     };
-    this.timer = 0;
-    this.startTimer = this.startTimer.bind(this);
-    this.countDown = this.countDown.bind(this);
   }
 
-  secondsToTime(secs) {
-    let divisor_for_minutes = secs % (60 * 60);
-    let minutes = Math.floor(divisor_for_minutes / 60);
-
-    let divisor_for_seconds = divisor_for_minutes % 60;
-    let seconds = Math.ceil(divisor_for_seconds);
-
-    let obj = {
-      m: minutes,
-      s: seconds
-    };
-    return obj;
-  }
-
-  componentDidMount = () => {
-    let timeLeftVar = this.secondsToTime(this.state.seconds);
-    this.setState({ time: timeLeftVar });
+  onFinish = () => {
+    alert("finished!");
   };
 
-  startTimer = () => {
-    if (this.timer == 0 && this.state.seconds > 0) {
-      this.timer = setInterval(this.countDown, 1000);
-    }
-  };
-
-  countDown = () => {
-    let seconds = this.state.seconds - 1;
+  handleClick = () => {
     this.setState({
-      time: this.secondsToTime(seconds),
-      seconds: seconds
-    });
-    if (seconds == 0) {
-      clearInterval(this.timer);
-      alert("Done");
-    }
-  };
-
-  getDate = () => {
-    var tempDate = new Date();
-    var date =
-      tempDate.getFullYear() +
-      "-" +
-      (tempDate.getMonth() + 1) +
-      "-" +
-      tempDate.getDate() +
-      " " +
-      tempDate.getHours() +
-      ":" +
-      tempDate.getMinutes() +
-      ":" +
-      tempDate.getSeconds();
-    const currDate = date;
-    this.setState({
-      date: currDate
+      time: deadline
     });
   };
 
   render() {
     return (
       <div>
-        {this.state.time.m} : {this.state.time.s}
-        <div>
-          <button onClick={this.startTimer}>Start</button>
-          <button onClick={this.getDate}>Get date</button>
-        </div>
-        {this.state.date}
+        <Navbar />
+        <Row gutter={16}>
+          <Col span={8} style={{ textAlign: "center" }}>
+            <PageHeader
+              style={{ background: "#ffff6", textAlign: "center" }}
+              title="Timer"
+            />
+            <Content>
+              <Countdown value={this.state.time} onFinish={this.onFinish} />
+            </Content>
+            <Footer style={{ background: "#fff6", textAlign: "center" }}>
+              <Button onClick={this.handleClick}>Start</Button>
+            </Footer>
+          </Col>
+          <Col span={8} style={{ textAlign: "center" }}>
+            <Form />
+          </Col>
+          <Col span={8} style={{ textAlign: "center" }}>
+            <Submissions />
+          </Col>
+        </Row>
       </div>
     );
   }
