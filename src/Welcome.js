@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import firebase from "./firebase.js";
-import Form from "./Form.js";
+import Timer from "./Timer.js";
 import Login from "./Login.js";
 
 class Welcome extends Component {
@@ -29,7 +29,9 @@ class Welcome extends Component {
 
   render() {
     return (
-      <div>{this.state.user ? <Form user={this.state.user} /> : <Login />}</div>
+      <div>
+        {this.state.user ? <Timer user={this.state.user} /> : <Login />}
+      </div>
     );
   }
 }

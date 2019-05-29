@@ -15,7 +15,6 @@ import {
 const { Content, Footer } = Layout;
 
 const Countdown = Statistic.Countdown;
-const deadline = Date.now() + 1000 * 60 * 25.01;
 
 class Timer extends Component {
   constructor() {
@@ -31,7 +30,7 @@ class Timer extends Component {
 
   handleClick = () => {
     this.setState({
-      time: deadline
+      time: Date.now() + 1000 * 60 * 25
     });
   };
 
@@ -53,10 +52,10 @@ class Timer extends Component {
             </Footer>
           </Col>
           <Col span={8} style={{ textAlign: "center" }}>
-            <Form />
+            <Form user={this.props.user} />
           </Col>
           <Col span={8} style={{ textAlign: "center" }}>
-            <Submissions />
+            {/* <Submissions /> */}
           </Col>
         </Row>
       </div>

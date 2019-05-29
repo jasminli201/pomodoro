@@ -8,9 +8,9 @@ class Navbar extends Component {
     return (
       <div>
         <Menu mode="horizontal">
-          <Menu.Item>
+          {/* <Menu.Item>
             <Link to="/">Welcome</Link>
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item>
             <Link to="/Timer">Timer</Link>
           </Menu.Item>
