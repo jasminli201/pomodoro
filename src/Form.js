@@ -1,4 +1,6 @@
 import React from "react";
+import firebase from "./firebase.js";
+import { throws } from "assert";
 
 export default class Form extends React.Component {
   state = {
@@ -14,11 +16,29 @@ export default class Form extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    usersRef.push(user);
     document.getElementById("activity").value = "";
     document.getElementById("time").value = "";
     document.getElementById("date").value = "";
+    //Need to access firebase on the certain user and push the activity,date and time up
+    const usersRef = firebase.database().ref("users");
+    const user = {
+      activity: this.state.activity,
+      date: this.convertDigitIn(this.state.date),
+      time: this.state.time
+    };
+    usersRef.push(user);
   };
+
+  convertDigitIn(str) {
+    return str
+      .split("/")
+      .reverse()
+      .join("/");
+  }
+
+  logout() {
+    firebase.auth().signOut();
+  }
 
   render() {
     return (
@@ -34,7 +54,7 @@ export default class Form extends React.Component {
 
           <label>Date Completed:</label>
           <input
-            type="text"
+            type="date"
             name="date"
             id="date"
             onChange={this.handleChange}
@@ -42,7 +62,7 @@ export default class Form extends React.Component {
 
           <label>Time Completed: </label>
           <input
-            type="text"
+            type="time"
             name="time"
             id="time"
             onChange={this.handleChange}
@@ -50,6 +70,11 @@ export default class Form extends React.Component {
 
           <input type="submit" value="Submit" />
         </form>
+        <h2>{this.state.activity}</h2>
+        <h2>{this.state.date}</h2>
+        <h2>{this.state.time}</h2>
+        <button onClick={this.logout}>Logout</button>
+        <h3>The current user id is: {this.props.user.uid}</h3>
       </div>
     );
   }
