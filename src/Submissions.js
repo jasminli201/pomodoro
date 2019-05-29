@@ -15,44 +15,19 @@ class Submissions extends Component {
     };
   }
 
-  componentDidMount() {
-    const usersRef = firebase.database().ref("users");
-    usersRef.on("value", snapshot => {
-      let users = snapshot.val();
-      let submissionsList = [];
-      for (let user in users) {
-        submissionsList.push({
-          id: user,
-          activity: users[user].activity,
-          date: users[user].date,
-          time: users[user].time
-        });
-      }
-      this.setState({
-        submissions: submissionsList
-      });
-      console.log(this.state.submissions);
-    });
-  }
-
-  handleClick() {
-    this.setState({
-      open: false
-    });
-  }
-
   render() {
     const { Content, Footer } = Layout;
 
     return (
       <div>
+        {/* {this.props.usersList} */}
         <Row>
           <Col span={15} style={{ textAlign: "center" }}>
             <PageHeader
               style={{ background: "#ffff6", textAlign: "center" }}
               title="Current Submissions"
             />
-            {this.state.submissions.map(submission => {
+            {this.props.usersList.map(submission => {
               return (
                 <Card
                   title={submission.activity}

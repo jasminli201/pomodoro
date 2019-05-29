@@ -54,11 +54,19 @@ class History extends Component {
   }
 
   componentDidMount() {
-    const tasksRef = firebase.database().ref("users");
-    console.log(tasksRef);
-    tasksRef.on("value", snapshot => {
-      this.setState({ userData: Object.values(snapshot.val()) });
-    });
+    firebase.auth().onAuthStateChanged(
+      function(user) {
+        if (user) {
+          // User is signed in.
+          const tasksRef = firebase.database().ref("users/" + user.uid);
+          console.log(tasksRef);
+          tasksRef.on("value", snapshot => {
+            if (snapshot.val() != null)
+              this.setState({ userData: Object.values(snapshot.val()) });
+          });
+        }
+      }.bind(this)
+    );
   }
 
   //simple list of tasks with info, add table

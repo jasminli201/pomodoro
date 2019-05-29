@@ -1,12 +1,16 @@
 import React from "react";
 import firebase from "./firebase.js";
-import { throws } from "assert";
+import { Card, Row, Col, Input, Button, PageHeader, Layout } from "antd";
+
+const usersLists = [];
+const { Header, Footer, Sider, Content } = Layout;
 
 export default class Form extends React.Component {
   state = {
     activity: "",
     date: "",
-    time: ""
+    time: "",
+    usersList:[]
   };
 
   handleChange = evt => {
@@ -15,66 +19,95 @@ export default class Form extends React.Component {
   };
 
   handleSubmit = event => {
-    event.preventDefault();
-    document.getElementById("activity").value = "";
-    document.getElementById("time").value = "";
-    document.getElementById("date").value = "";
-    //Need to access firebase on the certain user and push the activity,date and time up
-    const usersRef = firebase.database().ref("users");
-    const user = {
-      activity: this.state.activity,
-      date: this.convertDigitIn(this.state.date),
-      time: this.state.time
-    };
-    usersRef.push(user);
+    firebase.auth().onAuthStateChanged(
+      function(user) {
+        event.preventDefault();
+        document.getElementById("activity").value = "";
+        // document.getElementById("time").value = "";
+        // document.getElementById("date").value = "";
+        //Need to access firebase on the certain user and push the activity, date and time up
+        const usersRef = firebase.database().ref("users/" + user.uid);
+        const User = {
+          activity: this.state.activity,
+          date: this.getDate(),
+          time: this.getTime()
+        };
+        usersRef.push(User);
+        usersLists.push(User);
+        this.setState({ usersList: usersLists });
+        console.log(User);
+       
+      }.bind(this)
+    );
+    // this.createCard(user);
   };
-
-  convertDigitIn(str) {
-    return str
-      .split("/")
-      .reverse()
-      .join("/");
-  }
-
+  getDate = () => {
+    var tempDate = new Date();
+    var date =
+      tempDate.getMonth() +
+      1 +
+      "/" +
+      tempDate.getDate() +
+      "/" +
+      tempDate.getFullYear();
+    const currDate = date;
+    return currDate;
+  };
+  getTime = () => {
+    var tempDate = new Date();
+    var hour = tempDate.getHours();
+    var time = "AM";
+    if (hour > 12) {
+      hour = hour - 12;
+      time = "PM";
+    }
+    var time = hour + ":" + tempDate.getMinutes() + " " + time;
+    const currTime = time;
+    return currTime;
+  };
   logout() {
     firebase.auth().signOut();
   }
-
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>Activity Completed: </label>
-          <input
-            type="text"
-            name="activity"
-            id="activity"
-            onChange={this.handleChange}
-          />
-
-          <label>Date Completed:</label>
-          <input
-            type="date"
-            name="date"
-            id="date"
-            onChange={this.handleChange}
-          />
-
-          <label>Time Completed: </label>
-          <input
-            type="time"
-            name="time"
-            id="time"
-            onChange={this.handleChange}
-          />
-
-          <input type="submit" value="Submit" />
-        </form>
-        <h2>{this.state.activity}</h2>
-        <h2>{this.state.date}</h2>
-        <h2>{this.state.time}</h2>
-        <button onClick={this.logout}>Logout</button>
-        <h3>The current user id is: {this.props.user.uid}</h3>
+        {/* {console.log(this.props.user.uid)} */}
+        <Row>
+          <Col span={3} />
+          <Col span={12}>
+            <PageHeader
+              style={{ background: "#ffff6", textAlign: "center" }}
+              title="Enter completed activity:"
+            />
+            <Input
+              type="text"
+              name="activity"
+              id="activity"
+              onChange={this.handleChange}
+            />
+            <Footer style={{ background: "#fff6", textAlign: "center" }}>
+              <Button onClick={this.handleSubmit}>Submit</Button>
+            </Footer>
+            <Button onClick={this.logout}>Logout</Button>
+          </Col>
+          <Col span={9} style={{ textAlign: "center" }}>
+            {(this.state.usersList !== null) && this.state.usersList.map(submission => {
+              return (
+                <Card
+                  title={submission.activity}
+                  style={{
+                    background: "#ffff6",
+                    width: 300,
+                    textAlign: "center"
+                  }}
+                >
+                  <p>Date: {submission.date}</p>
+                  <p>Time: {submission.time}</p>
+                </Card>
+              );
+            })}
+          </Col>
+        </Row>
       </div>
     );
   }

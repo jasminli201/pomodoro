@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar.js";
-import Forms from "./Forms.js";
+import Form from "./Form.js";
 import Submissions from "./Submissions.js";
 import {
   Statistic,
@@ -15,7 +15,6 @@ import {
 const { Content, Footer } = Layout;
 
 const Countdown = Statistic.Countdown;
-const deadline = Date.now() + 1000 * 60 * 25.01;
 
 class Timer extends Component {
   constructor() {
@@ -31,12 +30,11 @@ class Timer extends Component {
 
   handleClick = () => {
     this.setState({
-      time: deadline
+      time: Date.now() + 1000 * 60 * 25
     });
   };
 
   render() {
-   
     return (
       <div>
         <Navbar />
@@ -54,11 +52,9 @@ class Timer extends Component {
             </Footer>
           </Col>
           <Col span={8} style={{ textAlign: "center" }}>
-            <Forms />
+            <Form user={this.props.user} />
           </Col>
-          <Col span={8} style={{ textAlign: "center" }}>
-            <Submissions />
-          </Col>
+         
         </Row>
       </div>
     );
