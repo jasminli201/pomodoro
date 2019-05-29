@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar.js";
 // import Form from "./Form.js";
-import { Button } from "antd";
-import { Statistic, Row, Col, Layout, PageHeader } from "antd";
+import Submissions from "./Submissions.js";
+import {
+  Statistic,
+  Row,
+  Col,
+  Layout,
+  PageHeader,
+  Button,
+  Carousel
+} from "antd";
 
 const { Content, Footer } = Layout;
 
@@ -47,7 +55,9 @@ class Timer extends Component {
           <Col span={12} style={{ textAlign: "center" }}>
             {/* <Form /> */}
           </Col>
-          <Col span={6} />
+          <Col span={6} style={{ textAlign: "center" }}>
+            <Submissions />
+          </Col>
         </Row>
       </div>
     );
