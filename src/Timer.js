@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar.js";
-// import Form from "./Form.js";
+import Form from "./Form.js";
 import Submissions from "./Submissions.js";
 import {
   Statistic,
@@ -53,7 +53,7 @@ class Timer extends Component {
             </Footer>
           </Col>
           <Col span={8} style={{ textAlign: "center" }}>
-            {/* <Form /> */}
+            <Form />
           </Col>
           <Col span={8} style={{ textAlign: "center" }}>
             <Submissions />
