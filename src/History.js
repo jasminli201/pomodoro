@@ -28,15 +28,7 @@ const columns = [
   
   ];
   
-  /*var data = [
-   {
-      key: '1',
-      activity: 'John Brown',
-      date: 32,
-      time: 'New York No. 1 Lake Park',
-     
-    },
-  ];*/
+ 
 
    const data = userData => {
    var Data = [];
@@ -72,9 +64,6 @@ class History extends Component {
         const tasksRef= firebase.database().ref("users");
         console.log (tasksRef);
         tasksRef.on('value', snapshot => {
-          console.log(Object.values(snapshot.val()));
-        });
-        tasksRef.on('value', snapshot => {
             this.setState({userData: Object.values(snapshot.val())});
           });
         
@@ -87,7 +76,6 @@ class History extends Component {
     return (
       <div>
           <h1>Log History</h1>
-         
           <Table columns={columns} dataSource={data(this.state.userData)} />
       </div>
 
