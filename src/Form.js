@@ -3,7 +3,7 @@ import firebase from "./firebase.js";
 import { Card, Row, Col, Input, Button, PageHeader, Layout } from "antd";
 import { Redirect } from "react-router-dom";
 
-const usersList = [];
+const usersLists = [];
 const { Header, Footer, Sider, Content } = Layout;
 
 export default class Form extends React.Component {
@@ -11,6 +11,7 @@ export default class Form extends React.Component {
     activity: "",
     date: "",
     time: "",
+    usersList: [],
     redirect: false
   };
 
@@ -34,13 +35,18 @@ export default class Form extends React.Component {
           time: this.getTime()
         };
         usersRef.push(User);
-        usersList.push(User);
+        usersLists.push(User);
+        this.setState({ usersList: usersLists });
         console.log(User);
-        console.log(usersList);
       }.bind(this)
     );
-    // this.createCard(user);
   };
+
+  componentDidMount() {
+    this.setState({
+      usersList: usersLists
+    });
+  }
 
   getDate = () => {
     var tempDate = new Date();
@@ -86,7 +92,6 @@ export default class Form extends React.Component {
       <div>
         {this.renderRedirect()}
         <Row>
-          <Col span={3} />
           <Col span={12}>
             <PageHeader
               style={{ background: "#ffff6", textAlign: "center" }}
@@ -96,6 +101,7 @@ export default class Form extends React.Component {
               type="text"
               name="activity"
               id="activity"
+              style={{ width: 350 }}
               onChange={this.handleChange}
             />
             <Footer style={{ background: "#fff6", textAlign: "center" }}>
@@ -103,22 +109,30 @@ export default class Form extends React.Component {
             </Footer>
             <Button onClick={this.logout}>Logout</Button>
           </Col>
-          <Col span={9} style={{ textAlign: "center" }}>
-            {usersList.map(submission => {
-              return (
-                <Card
-                  title={submission.activity}
-                  style={{
-                    background: "#ffff6",
-                    width: 300,
-                    textAlign: "center"
-                  }}
-                >
-                  <p>Date: {submission.date}</p>
-                  <p>Time: {submission.time}</p>
-                </Card>
-              );
-            })}
+          <Col
+            span={12}
+            style={{ textAlign: "center", justifyContent: "center" }}
+          >
+            <PageHeader
+              style={{ background: "#ffff6" }}
+              title="Completed activities:"
+            />
+            {this.state.usersList !== null &&
+              this.state.usersList.map(submission => {
+                return (
+                  <Card
+                    title={submission.activity}
+                    style={{
+                      background: "#ffff6",
+                      width: 300,
+                      textAlign: "center"
+                    }}
+                  >
+                    <p>Date: {submission.date}</p>
+                    <p>Time: {submission.time}</p>
+                  </Card>
+                );
+              })}
           </Col>
         </Row>
       </div>
