@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { Link, Route, BrowserRouter as Router } from "react-router-dom";
+import React from "react";
 import Timer from "./Timer.js";
 import History from "./History.js";
 import Welcome from "./Welcome.js";
