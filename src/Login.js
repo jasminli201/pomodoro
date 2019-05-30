@@ -48,12 +48,14 @@ class Login extends Component {
   render() {
     return (
       <Row>
+        <br />
         <Col span={6} />
         <Col span={12} style={{ textAlign: "center" }}>
           <PageHeader
             style={{ background: "#ffff6", textAlign: "center" }}
             title="Sign in to your pomodoro account:"
           />
+          <br />
           <div className="col-md-6">
             <Form>
               <div class="form-group">
@@ -72,6 +74,7 @@ class Login extends Component {
                   placeholder="Enter email"
                 />
               </div>
+              <br />
               <div class="form-group">
                 <Input
                   prefix={
@@ -87,6 +90,8 @@ class Login extends Component {
                   placeholder="Password"
                 />
               </div>
+              <br />
+              <br />
               <Button
                 type="primary"
                 htmlType="submit"
@@ -100,7 +105,7 @@ class Login extends Component {
                 style={{ marginLeft: "25px" }}
                 className="btn btn-success"
               >
-                Signup
+                Sign up
               </Button>
             </Form>
           </div>

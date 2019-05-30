@@ -5,7 +5,7 @@ import firebase from "./firebase.js";
 
 import "antd/dist/antd.css";
 import "./index.css";
-import { Table, Divider, Tag, PageHeader, Row, Col } from "antd";
+import { Table, Divider, Tag, PageHeader, Row, Col, Layout } from "antd";
 
 //table creation
 const columns = [
@@ -49,7 +49,8 @@ class History extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userData: null
+      userData: null,
+      tasks: 0
     };
   }
 
@@ -61,8 +62,10 @@ class History extends Component {
           const tasksRef = firebase.database().ref("users/" + user.uid);
           console.log(tasksRef);
           tasksRef.on("value", snapshot => {
-            if (snapshot.val() != null)
+            if (snapshot.val() != null) {
               this.setState({ userData: Object.values(snapshot.val()) });
+              this.setState({ tasks: this.state.userData.length });
+            }
           });
         }
       }.bind(this)
@@ -71,16 +74,27 @@ class History extends Component {
 
   //simple list of tasks with info, add table
   render() {
+    const { Header } = Layout;
+
     return (
       <div>
         <Navbar />
-        <PageHeader
-          style={{ background: "#ffff6", textAlign: "center" }}
-          title="Your History"
-        />
+        <br />
         <Row>
           <Col span={1} />
           <Col span={22}>
+            <Header
+              style={{
+                background: "#1890ff",
+                textAlign: "center"
+              }}
+            >
+              <h2 style={{ color: "white" }}>Your history</h2>
+            </Header>
+            <PageHeader
+              style={{ background: "white", textAlign: "center" }}
+              title={"Total tasks: " + this.state.tasks}
+            />
             <Table columns={columns} dataSource={data(this.state.userData)} />
           </Col>
           <Col span={1} />

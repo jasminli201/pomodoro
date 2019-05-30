@@ -11,7 +11,7 @@ import {
   Carousel
 } from "antd";
 
-const { Content, Footer } = Layout;
+const { Header, Content, Footer } = Layout;
 
 const Countdown = Statistic.Countdown;
 
@@ -46,21 +46,61 @@ class Timer extends Component {
     return (
       <div>
         <Navbar />
+        <br />
+        <Row>
+          <Col span={1} />
+          <Col span={8}>
+            <Header
+              style={{
+                background: "#1890ff",
+                textAlign: "center"
+              }}
+            >
+              <h2 style={{ color: "white" }}>Completed activites</h2>
+            </Header>
+            <br />
+          </Col>
+          <Col span={7}>
+            <Header
+              style={{
+                background: "#1890ff",
+                textAlign: "center"
+              }}
+            >
+              <h2 style={{ color: "white" }}>Task form</h2>
+            </Header>
+            <br />
+            <br />
+          </Col>
+          <Col span={7}>
+            <Header
+              style={{
+                background: "#1890ff",
+                textAlign: "center"
+              }}
+            >
+              <h2 style={{ color: "white" }}>Timer</h2>
+            </Header>
+            <br />
+          </Col>
+          <Col span={1} />
+        </Row>
         <Row gutter={16}>
-          <Col span={8} style={{ textAlign: "center" }}>
-            <PageHeader
-              style={{ background: "#ffff6", textAlign: "center" }}
-              title="Timer"
-            />
+          <Col span={16} style={{ textAlign: "center" }}>
+            <Form />
+          </Col>
+          <Col span={7} style={{ textAlign: "center" }}>
             <Content>
               <Countdown value={this.state.time} onFinish={this.onFinish} />
             </Content>
             <Footer style={{ background: "#fff6", textAlign: "center" }}>
-              <Button onClick={this.handleClick}>Start</Button>
+              <Button
+                style={{ background: "#1890ff", color: "#fffff6" }}
+                onClick={this.handleClick}
+              >
+                Start
+              </Button>
             </Footer>
-          </Col>
-          <Col span={16} style={{ textAlign: "center" }}>
-            <Form />
           </Col>
         </Row>
       </div>
