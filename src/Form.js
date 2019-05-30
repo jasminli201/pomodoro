@@ -1,10 +1,26 @@
 import React from "react";
 import firebase from "./firebase.js";
-import { Card, Row, Col, Input, Button, PageHeader, Layout } from "antd";
+import {
+  Card,
+  Row,
+  Col,
+  Input,
+  Button,
+  PageHeader,
+  Layout,
+  Collapse
+} from "antd";
 import { Redirect } from "react-router-dom";
 
 var usersLists = [];
 const { Header, Footer, Sider, Content } = Layout;
+const Panel = Collapse.Panel;
+const customPanelStyle = {
+  background: "#f7f7f7",
+  borderRadius: 4,
+  marginBottom: 24,
+  overflow: "hidden"
+};
 
 export default class Form extends React.Component {
   state = {
@@ -71,7 +87,12 @@ export default class Form extends React.Component {
       hour = hour - 12;
       time = "PM";
     }
-    var time = hour + ":" + tempDate.getMinutes() + " " + time;
+    var time =
+      hour +
+      ":" +
+      ((tempDate.getMinutes() < 10 ? "0" : "") + tempDate.getMinutes()) +
+      " " +
+      time;
     const currTime = time;
     return currTime;
   };
@@ -96,11 +117,28 @@ export default class Form extends React.Component {
       <div>
         {this.renderRedirect()}
         <Row>
-          <Col span={12}>
-            <PageHeader
-              style={{ background: "#ffff6", textAlign: "center" }}
-              title="Enter completed activity:"
-            />
+          <Col span={3} />
+          <Col
+            span={9}
+            style={{ textAlign: "center", justifyContent: "center" }}
+          >
+            {this.state.usersList !== null &&
+              this.state.usersList.map(submission => {
+                return (
+                  <Collapse>
+                    <Panel
+                      style={customPanelStyle}
+                      header={submission.activity}
+                    >
+                      <p>Date: {submission.date}</p>
+                      <p>Time: {submission.time}</p>
+                    </Panel>
+                  </Collapse>
+                );
+              })}
+          </Col>
+          <Col span={2} />
+          <Col span={10}>
             <Input
               type="text"
               name="activity"
@@ -108,36 +146,22 @@ export default class Form extends React.Component {
               style={{ width: 350 }}
               onChange={this.handleChange}
               value={this.state.activity}
+              placeholder="completed activity"
             />
             <Footer style={{ background: "#fff6", textAlign: "center" }}>
-              <Button onClick={this.handleSubmit}>Submit</Button>
+              <Button
+                style={{ background: "#1890ff", color: "#fffff6" }}
+                onClick={this.handleSubmit}
+              >
+                Submit
+              </Button>
             </Footer>
-            <Button onClick={this.logout}>Logout</Button>
-          </Col>
-          <Col
-            span={12}
-            style={{ textAlign: "center", justifyContent: "center" }}
-          >
-            <PageHeader
-              style={{ background: "#ffff6" }}
-              title="Completed activities:"
-            />
-            {this.state.usersList !== null &&
-              this.state.usersList.map(submission => {
-                return (
-                  <Card
-                    title={submission.activity}
-                    style={{
-                      background: "#ffff6",
-                      width: 300,
-                      textAlign: "center"
-                    }}
-                  >
-                    <p>Date: {submission.date}</p>
-                    <p>Time: {submission.time}</p>
-                  </Card>
-                );
-              })}
+            <Button
+              style={{ background: "white", color: "#1890ff" }}
+              onClick={this.logout}
+            >
+              Logout
+            </Button>
           </Col>
         </Row>
       </div>
