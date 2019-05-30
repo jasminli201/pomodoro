@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Route, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 import Timer from "./Timer.js";
 import History from "./History.js";
 import Welcome from "./Welcome.js";

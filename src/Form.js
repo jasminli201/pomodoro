@@ -3,14 +3,12 @@ import firebase from "./firebase.js";
 import { Card, Row, Col, Input, Button, PageHeader, Layout } from "antd";
 import { Redirect } from "react-router-dom";
 
-const usersLists = [];
+var usersLists = [];
 const { Header, Footer, Sider, Content } = Layout;
 
 export default class Form extends React.Component {
   state = {
     activity: "",
-    date: "",
-    time: "",
     usersList: [],
     redirect: false
   };
@@ -18,19 +16,19 @@ export default class Form extends React.Component {
   handleChange = evt => {
     evt.preventDefault();
     this.setState({ [evt.target.name]: evt.target.value });
+    console.log(evt.target.value);
   };
 
   handleSubmit = event => {
+    const activityName = this.state.activity;
     firebase.auth().onAuthStateChanged(
       function(user) {
         event.preventDefault();
         document.getElementById("activity").value = "";
-        // document.getElementById("time").value = "";
-        // document.getElementById("date").value = "";
         //Need to access firebase on the certain user and push the activity, date and time up
         const usersRef = firebase.database().ref("users/" + user.uid);
         const User = {
-          activity: this.state.activity,
+          activity: activityName,
           date: this.getDate(),
           time: this.getTime()
         };
@@ -40,6 +38,10 @@ export default class Form extends React.Component {
         console.log(User);
       }.bind(this)
     );
+    console.log(this.state.activity);
+    this.setState({
+      activity: ""
+    });
   };
 
   componentDidMount() {
@@ -76,14 +78,16 @@ export default class Form extends React.Component {
 
   logout = () => {
     firebase.auth().signOut();
+    usersLists = [];
     this.setState({
-      redirect: true
+      redirect: true,
+      usersList: []
     });
   };
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to="/" />;
+      return <Redirect from="/Timer" to="/" />;
     }
   };
 
@@ -103,6 +107,7 @@ export default class Form extends React.Component {
               id="activity"
               style={{ width: 350 }}
               onChange={this.handleChange}
+              value={this.state.activity}
             />
             <Footer style={{ background: "#fff6", textAlign: "center" }}>
               <Button onClick={this.handleSubmit}>Submit</Button>
