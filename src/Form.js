@@ -99,6 +99,7 @@ export default class Form extends React.Component {
 
   logout = () => {
     firebase.auth().signOut();
+    this.props.reset();
     usersLists = [];
     this.setState({
       redirect: true,

@@ -42,6 +42,10 @@ class Timer extends Component {
     });
   };
 
+  reset=()=>{
+    seconds=0;
+  }
+
   render() {
     return (
       <div>
@@ -87,7 +91,7 @@ class Timer extends Component {
         </Row>
         <Row gutter={16}>
           <Col span={16} style={{ textAlign: "center" }}>
-            <Form />
+            <Form  reset={this.reset}/>
           </Col>
           <Col span={7} style={{ textAlign: "center" }}>
             <Content>
