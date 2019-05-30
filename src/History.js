@@ -49,7 +49,8 @@ class History extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userData: null
+      userData: null,
+      tasks: 0
     };
   }
 
@@ -63,6 +64,7 @@ class History extends Component {
           tasksRef.on("value", snapshot => {
             if (snapshot.val() != null)
               this.setState({ userData: Object.values(snapshot.val()) });
+              this.setState({tasks: this.state.userData.length});
           });
         }
       }.bind(this)
@@ -75,9 +77,12 @@ class History extends Component {
       <div>
         <Navbar />
         <PageHeader
-          style={{ background: "#ffff6", textAlign: "center" }}
-          title="Your History"
-        />
+          style={{ background: "#ffff6", textAlign: "center" }}> <h2>Your History</h2>
+              <h2>Total Tasks: {this.state.tasks}</h2></PageHeader>
+          
+           
+        
+        
         <Row>
           <Col span={1} />
           <Col span={22}>
@@ -85,6 +90,7 @@ class History extends Component {
           </Col>
           <Col span={1} />
         </Row>
+      
       </div>
     );
   }

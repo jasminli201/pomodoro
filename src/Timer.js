@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar.js";
 import Form from "./Form.js";
-import Submissions from "./Submissions.js";
+
+
 import {
   Statistic,
   Row,
@@ -15,6 +16,7 @@ import {
 const { Content, Footer } = Layout;
 
 const Countdown = Statistic.Countdown;
+var seconds=0;
 
 class Timer extends Component {
   constructor() {
@@ -24,15 +26,26 @@ class Timer extends Component {
     };
   }
 
+  componentDidMount(){
+    this.setState({
+      time:seconds
+    });
+  };
+
   onFinish = () => {
     alert("finished!");
   };
 
   handleClick = () => {
+      seconds= Date.now() + 1000 * 60 * 25;
     this.setState({
-      time: Date.now() + 1000 * 60 * 25
+      time: seconds,
     });
   };
+
+  reset=()=>{
+    seconds=0;
+  }
 
   render() {
     return (
@@ -52,7 +65,8 @@ class Timer extends Component {
             </Footer>
           </Col>
           <Col span={8} style={{ textAlign: "center" }}>
-            <Form user={this.props.user} />
+            <Form user={this.props.user} reset={this.reset}   />
+            
           </Col>
          
         </Row>

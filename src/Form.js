@@ -1,11 +1,13 @@
 import React from "react";
 import firebase from "./firebase.js";
 import { Card, Row, Col, Input, Button, PageHeader, Layout } from "antd";
-
-const usersLists = [];
 import { Redirect } from "react-router-dom";
 
+
+const usersLists = [];
+
 const { Header, Footer, Sider, Content } = Layout;
+
 
 export default class Form extends React.Component {
   state = {
@@ -64,16 +66,23 @@ export default class Form extends React.Component {
       hour = hour - 12;
       time = "PM";
     }
-    var time = hour + ":" + tempDate.getMinutes() + " " + time;
+   
+    var time = hour + ":" + ((tempDate.getMinutes() < 10 ? '0' : '') + tempDate.getMinutes()) + " " + time;
     const currTime = time;
+   
     return currTime;
   };
 
   logout = () => {
+  
     firebase.auth().signOut();
+    this.props.reset();
     this.setState({
-      redirect: true
+     
+      redirect: false
+
     });
+
   };
 
   renderRedirect = () => {
@@ -85,7 +94,7 @@ export default class Form extends React.Component {
   render() {
     return (
       <div>
-        {this.renderRedirect()}
+     
         <Row>
           <Col span={3} />
           <Col span={12}>
@@ -122,6 +131,7 @@ export default class Form extends React.Component {
             })}
           </Col>
         </Row>
+        {this.renderRedirect()}
       </div>
     );
   }
