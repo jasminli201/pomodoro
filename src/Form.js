@@ -1,19 +1,9 @@
 import React from "react";
 import firebase from "./firebase.js";
-import {
-  Card,
-  Row,
-  Col,
-  Input,
-  Button,
-  PageHeader,
-  Layout,
-  Collapse
-} from "antd";
-import { Redirect } from "react-router-dom";
+import { Row, Col, Input, Button, Layout, Collapse } from "antd";
+import { withRouter } from "react-router-dom";
 
-var usersLists = [];
-const { Header, Footer, Sider, Content } = Layout;
+const { Footer } = Layout;
 const Panel = Collapse.Panel;
 const customPanelStyle = {
   background: "#f7f7f7",
@@ -22,7 +12,9 @@ const customPanelStyle = {
   overflow: "hidden"
 };
 
-export default class Form extends React.Component {
+var usersLists = [];
+
+class Form extends React.Component {
   state = {
     activity: "",
     usersList: [],
@@ -105,18 +97,12 @@ export default class Form extends React.Component {
       redirect: true,
       usersList: []
     });
-  };
-
-  renderRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to="/" />;
-    }
+    this.props.history.push("/");
   };
 
   render() {
     return (
       <div>
-        {this.renderRedirect()}
         <Row>
           <Col span={3} />
           <Col
@@ -151,7 +137,7 @@ export default class Form extends React.Component {
             />
             <Footer style={{ background: "white", textAlign: "center" }}>
               <Button
-                style={{ background: "#1890ff", color: "#white" }}
+                style={{ background: "#1890ff", color: "white" }}
                 onClick={this.handleSubmit}
               >
                 Submit
@@ -169,3 +155,5 @@ export default class Form extends React.Component {
     );
   }
 }
+
+export default withRouter(Form);
