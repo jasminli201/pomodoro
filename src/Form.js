@@ -8,8 +8,6 @@ import {
   Layout,
   Collapse,
   Card,
-  Skeleton,
-  Comment,
   Icon,
   Tooltip,
   Avatar
@@ -147,29 +145,6 @@ class Form extends React.Component {
   render() {
     const { likes, dislikes, action } = this.state;
     const { Meta } = Card;
-
-    const actions = [
-      <span>
-        <Tooltip title="Like">
-          <Icon
-            type="like"
-            theme={action === "liked" ? "filled" : "outlined"}
-            onClick={this.like}
-          />
-        </Tooltip>
-        <span style={{ paddingLeft: 8, cursor: "auto" }}>{likes}</span>
-      </span>,
-      <span>
-        <Tooltip title="Dislike">
-          <Icon
-            type="dislike"
-            theme={action === "disliked" ? "filled" : "outlined"}
-            onClick={this.dislike}
-          />
-        </Tooltip>
-        <span style={{ paddingLeft: 8, cursor: "auto" }}>{dislikes}</span>
-      </span>
-    ];
     return (
       <div>
         <Row>
