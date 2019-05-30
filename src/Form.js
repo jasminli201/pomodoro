@@ -108,7 +108,7 @@ export default class Form extends React.Component {
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect from="/Timer" to="/" />;
+      return <Redirect to="/" />;
     }
   };
 
@@ -148,9 +148,9 @@ export default class Form extends React.Component {
               value={this.state.activity}
               placeholder="completed activity"
             />
-            <Footer style={{ background: "#fff6", textAlign: "center" }}>
+            <Footer style={{ background: "white", textAlign: "center" }}>
               <Button
-                style={{ background: "#1890ff", color: "#fffff6" }}
+                style={{ background: "#1890ff", color: "#white" }}
                 onClick={this.handleSubmit}
               >
                 Submit

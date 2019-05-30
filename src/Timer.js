@@ -93,7 +93,7 @@ class Timer extends Component {
             <Content>
               <Countdown value={this.state.time} onFinish={this.onFinish} />
             </Content>
-            <Footer style={{ background: "#fff6", textAlign: "center" }}>
+            <Footer style={{ background: "white", textAlign: "center" }}>
               <Button
                 style={{ background: "#1890ff", color: "#fffff6" }}
                 onClick={this.handleClick}
