@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar.js";
 import Form from "./Form.js";
-import {
-  Statistic,
-  Row,
-  Col,
-  Layout,
-  PageHeader,
-  Button,
-  Carousel
-} from "antd";
+import { Statistic, Row, Col, Layout, Button } from "antd";
 
 const { Header, Content, Footer } = Layout;
 
@@ -42,9 +34,9 @@ class Timer extends Component {
     });
   };
 
-  reset=()=>{
-    seconds=0;
-  }
+  reset = () => {
+    seconds = 0;
+  };
 
   render() {
     return (
@@ -91,13 +83,13 @@ class Timer extends Component {
         </Row>
         <Row gutter={16}>
           <Col span={16} style={{ textAlign: "center" }}>
-            <Form  reset={this.reset}/>
+            <Form reset={this.reset} history={this.props.history} />
           </Col>
           <Col span={7} style={{ textAlign: "center" }}>
             <Content>
               <Countdown value={this.state.time} onFinish={this.onFinish} />
             </Content>
-            <Footer style={{ background: "#fff6", textAlign: "center" }}>
+            <Footer style={{ background: "white", textAlign: "center" }}>
               <Button
                 style={{ background: "#1890ff", color: "#fffff6" }}
                 onClick={this.handleClick}

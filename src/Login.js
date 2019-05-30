@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import firebase from "./firebase.js";
-import { Card, Row, Col, Input, Button, PageHeader, Form } from "antd";
-import { Icon, Checkbox } from "antd";
-
-import { Link } from "react-router-dom";
+import { Row, Col, Input, Button, PageHeader, Form, Icon } from "antd";
 
 class Login extends Component {
   constructor(props) {

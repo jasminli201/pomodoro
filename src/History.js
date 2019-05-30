@@ -2,10 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./Navbar.js";
 import firebase from "./firebase.js";
-
-import "antd/dist/antd.css";
-import "./index.css";
-import { Table, Divider, Tag, PageHeader, Row, Col, Layout } from "antd";
+import { Table, PageHeader, Row, Col, Layout } from "antd";
 
 //table creation
 const columns = [
