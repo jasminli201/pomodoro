@@ -3,6 +3,7 @@ import "./App.css";
 import Navbar from "./Navbar.js";
 import firebase from "./firebase.js";
 import Chart from 'react-google-charts';
+import { Table, PageHeader, Row, Col, Layout } from "antd";
 
 
 const data = userData => {
@@ -61,12 +62,23 @@ class Graph extends Component {
     
       //simple list of tasks with info, add table
       render() {
-       
+        const { Header } = Layout;
     
         return (
           <div>
               <Navbar />
-       <h1>Data Graphs</h1>
+              <br></br>
+              <Row>
+          <Col span={1} />
+          <Col span={22}>
+              <Header
+              style={{
+                background: "#1890ff",
+                textAlign: "center"
+              }}
+            >
+              <h2 style={{ color: "white" }}>Tasks Completed by Type</h2>
+            </Header>
        <Chart
   width={'800px'}
   height={'600px'}
@@ -74,7 +86,6 @@ class Graph extends Component {
   loader={<div>Loading Chart</div>}
   data={data(this.state.userData)}
   options={{
-    title: 'Tasks Completed by Type',
     chartArea: { width: '50%' },
     hAxis: {
       title: 'Tasks Completed',
@@ -84,9 +95,11 @@ class Graph extends Component {
       title: 'Task Type',
     },
   }}
-  // For tests
-  rootProps={{ 'data-testid': '1' }}
 />
+</Col>
+
+          <Col span={1} />
+</Row>
           </div>
         );
       }
