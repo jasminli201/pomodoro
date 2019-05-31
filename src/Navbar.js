@@ -14,6 +14,9 @@ class Navbar extends Component {
           <Menu.Item>
             <Link to="/History">History</Link>
           </Menu.Item>
+          <Menu.Item>
+            <Link to="/Graph">Graph</Link>
+          </Menu.Item>
         </Menu>
       </div>
     );
