@@ -80,23 +80,28 @@ class Graph extends Component {
             >
               <h2 style={{ color: "white" }}>Your Tasks Completed by Type</h2>
             </Header>
-            <Chart
-              width={"800px"}
-              height={"600px"}
-              chartType="BarChart"
-              loader={<h2 style={{ textAlign: "center" }}>Loading Chart</h2>}
-              data={data(this.state.userData)}
-              options={{
-                chartArea: { width: "50%" },
-                hAxis: {
-                  title: "Tasks Completed",
-                  minValue: 0
-                },
-                vAxis: {
-                  title: "Task Type"
-                }
-              }}
-            />
+            <Row>
+              <Col span={4} />
+              <Col span={12}>
+                <Chart
+                  width={"900px"}
+                  height={"500px"}
+                  chartType="BarChart"
+                  data={data(this.state.userData)}
+                  options={{
+                    chartArea: { width: "60%", height: "80%" },
+                    hAxis: {
+                      title: "Tasks Completed",
+                      minValue: 0
+                    },
+                    vAxis: {
+                      title: "Task Type"
+                    },
+                    legend: "none"
+                  }}
+                />
+              </Col>
+            </Row>
           </Col>
           <Col span={1} />
         </Row>
