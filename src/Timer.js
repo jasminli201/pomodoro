@@ -68,9 +68,6 @@ class Timer extends Component {
             </Header>
             <br />
           </Col>
-          <Col span={1}>
-            <Header style={{ background: "#1890ff" }} />
-          </Col>
           <Col span={7}>
             <Header
               style={{
@@ -83,7 +80,7 @@ class Timer extends Component {
             <br />
             <br />
           </Col>
-          <Col span={7}>
+          <Col span={8}>
             <Header
               style={{
                 background: "#1890ff",
@@ -110,7 +107,6 @@ class Timer extends Component {
                 Start
               </Button>
             </Footer>
-            <br />
             <br />
             <br />
             <br />

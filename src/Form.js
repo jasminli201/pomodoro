@@ -137,7 +137,7 @@ class Form extends React.Component {
     return (
       <div>
         <Row>
-          <Col span={3} />
+          <Col span={2} />
           <Col span={10}>
             <h3>Select a label: </h3>
             <br />
@@ -169,13 +169,6 @@ class Form extends React.Component {
                 Submit
               </Button>
             </Footer>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
             <br />
             <Button
               style={{ background: "white", color: "#1890ff" }}
