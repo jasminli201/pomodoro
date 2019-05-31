@@ -110,7 +110,7 @@ class Timer extends Component {
             <br />
             <br />
             <br />
-            <Card style={{ height: 200 }} title="Kanye West Quotes">
+            <Card style={{ height: 225 }} title="Kanye West Quotes">
               <Meta
                 avatar={
                   <Avatar
